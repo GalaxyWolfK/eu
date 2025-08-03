@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LuckySpin Casino - Slot Machine</title>
+    <link rel="stylesheet" type="text/css" href="../css/slot-machine.css">
+    <link rel="stylesheet" type="text/css" href="../css/page.css">
+    <link rel="icon" href="../photos/icon.jpg" >
+</head>
+<body>
+<style>
+body {
+    background: radial-gradient(circle at 60% 40%, #181830 0%, #1a1a40 100%);
+    min-height: 100vh;
+}
+</style>
+    <header class="main-header">
+        <div class="promo-banner">
+            🎉 Play now and WIN REAL MONEY! Every spin could be your lucky jackpot! 🎉
+        </div>
+        <h1>🎰 LuckySpin Casino 🎲</h1>
+        <nav>
+            <a href="gambling.html">Home</a>
+            <a href="gambling-page.html">Games</a>
+            <a href="promotions.html">Promotions</a>
+            <a href="sign up.html">Sign Up</a>
+            <a href="login.html">Login</a>
+        </nav>
+    </header>
+    <main>
+        <section class="slot-section">
+            <div class="slot-layout">
+                <div class="slot-machine">
+                    <div class="slot-reels" id="slot-reels">
+                        <!-- 6x6 grid, 36 reels -->
+                        <!-- Will be filled by JS -->
+                    </div>
+                    <button class="spin-btn" onclick="spinSlots()" id="spin-btn">Spin</button>
+                    <div class="slot-result" id="slot-result"></div>
+                    <div class="slot-balance">
+                        Balance: <span id="slot-balance">100</span> chips
+                    </div>
+                    <div class="slot-rewards">
+                        <strong>Rewards:</strong>
+                        <ul>
+                            <li>💎 6 in a row/col/diagonal: <span style="color:#ffde59;">JACKPOT! +300</span></li>
+                            <li>7️⃣ 6 in a row/col/diagonal: <span style="color:#ffde59;">Big Win! +150</span></li>
+                            <li>🍒 6 in a row/col/diagonal: <span style="color:#ffde59;">Sweet Win! +80</span></li>
+                            <li>Any 5 in a row/col/diagonal: <span style="color:#00ff99;">Nice! +40</span></li>
+                            <li>Any 4 in a row/col/diagonal: <span style="color:#00bfff;">Small Win! +15</span></li>
+                            <li>No match: <span style="color:#ff0080;">-20</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="promo-footer">
+            💸 Ready to win? Play more and boost your chances for a cash prize! 💸
+        </div>
+        <p>&copy; 2025 LuckySpin Casino. All rights reserved.</p>
+    </footer>
+    <script>
+        const symbols = ["🍒", "🍋", "🔔", "🍀", "💰", "💎", "🍉", "🍇", "⭐"];
+        let balance = 100;
+
+        function createGrid() {
+            const reels = document.getElementById('slot-reels');
+            reels.innerHTML = '';
+            for (let row = 0; row < 6; row++) {
+                const rowDiv = document.createElement('div');
+                rowDiv.className = 'slot-row';
+                for (let col = 0; col < 6; col++) {
+                    const idx = row * 6 + col + 1;
+                    const span = document.createElement('span');
+                    span.className = 'reel';
+                    span.id = `reel${idx}`;
+                    span.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+                    rowDiv.appendChild(span);
+                }
+                reels.appendChild(rowDiv);
+            }
+        }
+        createGrid();
+
+        function spinSlots() {
+            const btn = document.getElementById('spin-btn');
+            btn.disabled = true;
+            document.getElementById('slot-result').textContent = "Spinning...";
+            let spins = 20;
+            let i = 0;
+            const grid = [];
+            for (let row = 0; row < 6; row++) {
+                grid[row] = [];
+                for (let col = 0; col < 6; col++) {
+                    grid[row][col] = document.getElementById(`reel${row * 6 + col + 1}`);
+                }
+            }
+            const spinInterval = setInterval(() => {
+                for (let row = 0; row < 6; row++) {
+                    for (let col = 0; col < 6; col++) {
+                        grid[row][col].textContent = symbols[Math.floor(Math.random() * symbols.length)];
+                    }
+                }
+                i++;
+                if (i >= spins) {
+                    clearInterval(spinInterval);
+                    // Final result
+                    let finalGrid = [];
+                    for (let row = 0; row < 6; row++) {
+                        finalGrid[row] = [];
+                        for (let col = 0; col < 6; col++) {
+                            const symbol = symbols[Math.floor(Math.random() * symbols.length)];
+                            grid[row][col].textContent = symbol;
+                            finalGrid[row][col] = symbol;
+                        }
+                    }
+                    let reward = 0;
+                    let result = "";
+
+                    // Check rows, columns, diagonals for matches
+                    function checkLine(line, symbol) {
+                        return line.every(cell => cell === symbol);
+                    }
+                    let jackpot = false, bigWin = false, medWin = false, fiveRow = false;
+
+                    // Check rows
+                    for (let row = 0; row < 6; row++) {
+                        for (let s of ["💎", "7️⃣", "🍒"]) {
+                            if (checkLine(finalGrid[row], s)) {
+                                if (s === "💎") jackpot = true;
+                                else if (s === "7️⃣") bigWin = true;
+                                else if (s === "🍒") medWin = true;
+                            }
+                        }
+                        // Any 5 in a row
+                        for (let start = 0; start <= 1; start++) {
+                            let slice = finalGrid[row].slice(start, start + 5);
+                            if (slice.every(cell => cell === slice[0])) fiveRow = fiveRow || (slice[0] !== undefined && slice[0] !== "");
+                        }
+                    }
+                    // Check columns
+                    for (let col = 0; col < 6; col++) {
+                        let colArr = [];
+                        for (let row = 0; row < 6; row++) colArr.push(finalGrid[row][col]);
+                        for (let s of ["💎", "7️⃣", "🍒"]) {
+                            if (checkLine(colArr, s)) {
+                                if (s === "💎") jackpot = true;
+                                else if (s === "7️⃣") bigWin = true;
+                                else if (s === "🍒") medWin = true;
+                            }
+                        }
+                        // Any 5 in a col
+                        for (let start = 0; start <= 1; start++) {
+                            let slice = colArr.slice(start, start + 5);
+                            if (slice.every(cell => cell === slice[0])) fiveRow = fiveRow || (slice[0] !== undefined && slice[0] !== "");
+                        }
+                    }
+                    // Check diagonals
+                    for (let s of ["💎", "7️⃣", "🍒"]) {
+                        // TL-BR
+                        let diag1 = [];
+                        for (let i = 0; i < 6; i++) diag1.push(finalGrid[i][i]);
+                        if (checkLine(diag1, s)) {
+                            if (s === "💎") jackpot = true;
+                            else if (s === "7️⃣") bigWin = true;
+                            else if (s === "🍒") medWin = true;
+                        }
+                        // TR-BL
+                        let diag2 = [];
+                        for (let i = 0; i < 6; i++) diag2.push(finalGrid[i][5 - i]);
+                        if (checkLine(diag2, s)) {
+                            if (s === "💎") jackpot = true;
+                            else if (s === "7️⃣") bigWin = true;
+                            else if (s === "🍒") medWin = true;
+                        }
+                    }
+                    // Any 5 in a diagonal
+                    for (let d = 0; d <= 1; d++) {
+                        // TL-BR
+                        let slice1 = [];
+                        let slice2 = [];
+                        for (let i = 0; i < 5; i++) {
+                            slice1.push(finalGrid[i + d][i]);
+                            slice2.push(finalGrid[i][i + d]);
+                        }
+                        if (slice1.every(cell => cell === slice1[0])) fiveRow = fiveRow || (slice1[0] !== undefined && slice1[0] !== "");
+                        if (slice2.every(cell => cell === slice2[0])) fiveRow = fiveRow || (slice2[0] !== undefined && slice2[0] !== "");
+                        // TR-BL
+                        let slice3 = [];
+                        let slice4 = [];
+                        for (let i = 0; i < 5; i++) {
+                            slice3.push(finalGrid[i + d][5 - i]);
+                            slice4.push(finalGrid[i][5 - (i + d)]);
+                        }
+                        if (slice3.every(cell => cell === slice3[0])) fiveRow = fiveRow || (slice3[0] !== undefined && slice3[0] !== "");
+                        if (slice4.every(cell => cell === slice4[0])) fiveRow = fiveRow || (slice4[0] !== undefined && slice4[0] !== "");
+                    }
+
+                    if (jackpot) {
+                        reward = 300;
+                        result = "JACKPOT! 💎💎💎💎💎💎 +300 chips!";
+                    } else if (bigWin) {
+                        reward = 150;
+                        result = "All 7️⃣ in a line! +150 chips!";
+                    } else if (medWin) {
+                        reward = 80;
+                        result = "All 🍒 in a line! +80 chips!";
+                    } else if (fiveRow) {
+                        reward = 40;
+                        result = "Five in a row! +40 chips!";
+                    } else {
+                        reward = -20;
+                        result = "No match. -20 chips.";
+                    }
+                    balance += reward;
+                    document.getElementById('slot-result').textContent = result;
+                    document.getElementById('slot-balance').textContent = balance;
+                    btn.disabled = false;
+                }
+            }, 60);
+        }
+    </script>
+</body>
+</html>

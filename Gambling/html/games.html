@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LuckySpin Casino - Roulette</title>
+    <link rel="stylesheet" type="text/css" href="../css/games.css">
+    <link rel="stylesheet" type="text/css" href="../css/page.css">
+    <link rel="icon" href="../photos/icon.jpg" >
+</head>
+<body>
+    <header class="main-header">
+        <h1>🎰 LuckySpin Casino 🎲</h1>
+        <nav>
+            <a href="gambling.html">Home</a>
+            <a href="gambling-page.html">Games</a>
+            <a href="promotions.html">Promotions</a>
+            <a href="sign up.html">Sign Up</a>
+            <a href="login.html">Login</a>
+        </nav>
+    </header>
+    <main>
+        <section class="roulette-section">
+            <div class="roulette-board">
+                <h2>Roulette</h2>
+                <div class="roulette-wheel" id="roulette-wheel">
+                    <div class="wheel-pointer">▼</div>
+                    <canvas id="wheel-canvas" width="300" height="300"></canvas>
+                </div>
+                <form id="roulette-form" onsubmit="event.preventDefault(); spinRoulette();">
+                    <label for="bet-number">Pick a number (0-36):</label>
+                    <input type="number" id="bet-number" min="0" max="36" value="7" required>
+                    <label for="bet-amount">Bet Amount:</label>
+                    <input type="number" id="bet-amount" min="1" value="10" required>
+                    <button type="submit" class="play-btn">Spin</button>
+                </form>
+                <div class="roulette-result" id="roulette-result"></div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2025 LuckySpin Casino. All rights reserved.</p>
+    </footer>
+    <script>
+        const numbers = 37;
+        const angle = 2 * Math.PI / numbers;
+        const colors = ["#2e2e2e", "#ff0000", "#008000"];
+        let currentRotation = 0;
+
+        function drawWheel(selected, rotation = 0) {
+            const canvas = document.getElementById('wheel-canvas');
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, 300, 300);
+            ctx.save();
+            ctx.translate(150, 150);
+            ctx.rotate(rotation);
+            ctx.translate(-150, -150);
+            for (let i = 0; i < numbers; i++) {
+                ctx.beginPath();
+                ctx.moveTo(150, 150);
+                ctx.arc(150, 150, 140, i * angle, (i + 1) * angle);
+                ctx.closePath();
+                ctx.fillStyle = i === 0 ? colors[0] : (i % 2 === 0 ? colors[1] : colors[2]);
+                ctx.fill();
+                // Highlight selected
+                if (selected === i) {
+                    ctx.save();
+                    ctx.globalAlpha = 0.4;
+                    ctx.beginPath();
+                    ctx.moveTo(150, 150);
+                    ctx.arc(150, 150, 140, i * angle, (i + 1) * angle);
+                    ctx.closePath();
+                    ctx.fillStyle = "#ffde59";
+                    ctx.fill();
+                    ctx.restore();
+                }
+                // Draw number
+                ctx.save();
+                ctx.translate(150, 150);
+                ctx.rotate((i + 0.5) * angle);
+                ctx.textAlign = "right";
+                ctx.fillStyle = "#fff";
+                ctx.font = "bold 16px Orbitron, Arial";
+                ctx.fillText(i, 135, 7);
+                ctx.restore();
+            }
+            ctx.restore();
+        }
+        drawWheel();
+
+        function spinRoulette() {
+            const betNum = parseInt(document.getElementById('bet-number').value, 10);
+            const betAmt = parseInt(document.getElementById('bet-amount').value, 10);
+            const spin = Math.floor(Math.random() * 37);
+
+            // Calculate final rotation so the winning number is at the pointer (top)
+            const spins = 8; // number of full spins for animation
+            const finalAngle = (3 * Math.PI / 2) - (spin * angle); // pointer is at -90deg (top)
+            const totalRotation = spins * 2 * Math.PI + finalAngle;
+
+            let start = null;
+            let duration = 3000; // ms
+            let initialRotation = currentRotation % (2 * Math.PI);
+
+            function animateWheel(timestamp) {
+                if (!start) start = timestamp;
+                let elapsed = timestamp - start;
+                let progress = Math.min(elapsed / duration, 1);
+                // Ease out
+                let ease = 1 - Math.pow(1 - progress, 3);
+                let rotation = initialRotation + (totalRotation - initialRotation) * ease;
+                drawWheel(spin, rotation);
+                if (progress < 1) {
+                    requestAnimationFrame(animateWheel);
+                } else {
+                    currentRotation = totalRotation;
+                    showResult();
+                }
+            }
+
+            function showResult() {
+                let resultMsg = `<strong>The wheel landed on <span style="color:#ffde59">${spin}</span>.</strong><br>`;
+                if (betNum === spin) {
+                    resultMsg += `<span style="color:#00ff99">You win ${betAmt * 36} chips! 🎉</span>`;
+                } else {
+                    resultMsg += `<span style="color:#ff0080">You lost ${betAmt} chips. Try again!</span>`;
+                }
+                document.getElementById('roulette-result').innerHTML = resultMsg;
+            }
+
+            requestAnimationFrame(animateWheel);
+        }
+    </script>
+</body>
+</html>

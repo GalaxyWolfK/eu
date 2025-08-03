@@ -1,0 +1,166 @@
+.slot-section {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: calc(100vh - 140px); /* Adjust for header/footer height */
+    margin-top: 0;
+    width: 100vw;
+}
+
+.slot-layout {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100vw;
+    height: 100%;
+    margin: 0;
+    max-width: none;
+    gap: 0;
+}
+
+.slot-machine {
+    background: linear-gradient(135deg, #1a1a40 0%, #2c2c70 100%);
+    border-radius: 2rem;
+    box-shadow: 0 8px 32px #ff008055, 0 0 0 8px #ffde5955 inset;
+    padding: 2rem 2.5rem 2.5rem 2.5rem;
+    width: 60vw;
+    max-width: 600px;
+    margin: 2rem auto 0 auto;
+    text-align: center;
+    animation: fadeIn 0.7s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    border: 3px solid #ffde59;
+}
+
+.slot-reels {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: auto;
+    margin: 0 0 1.5rem 0;
+    gap: 0.5rem;
+}
+
+.slot-row {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.reel {
+    flex: 1 1 0;
+    aspect-ratio: 1 / 1;
+    background: radial-gradient(circle at 60% 40%, #ffde59 0%, #181830 80%);
+    border-radius: 1em;
+    box-shadow: 0 2px 16px #ff008055, 0 0 0 3px #ffde59 inset;
+    font-size: 2.2rem;
+    text-align: center;
+    margin: 0;
+    border: 2.5px solid #ffde59;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 48px;
+    min-height: 48px;
+    max-width: 60px;
+    max-height: 60px;
+    line-height: 1;
+    transition: transform 0.2s, box-shadow 0.2s;
+    animation: reelGlow 1.5s infinite alternate;
+}
+
+@keyframes reelGlow {
+    0% { box-shadow: 0 2px 16px #ff008055, 0 0 0 3px #ffde59 inset; }
+    100% { box-shadow: 0 8px 32px #ff0080aa, 0 0 0 6px #ffde59cc inset; }
+}
+
+.reel:hover {
+    transform: scale(1.12) rotate(-2deg);
+    box-shadow: 0 12px 48px #ff0080cc, 0 0 0 8px #ffde59cc inset;
+}
+
+.slot-result {
+    margin-top: 1.5rem;
+    font-size: 1.3rem;
+    min-height: 2em;
+    font-weight: bold;
+    color: #ffde59;
+    text-shadow: 0 2px 8px #ff008055;
+    letter-spacing: 1px;
+}
+
+.slot-balance {
+    margin-top: 1rem;
+    color: #ffde59;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-shadow: 0 1px 4px #ff008055;
+}
+
+.slot-rewards {
+    margin-top: 2rem;
+    background: linear-gradient(90deg, #181830 0%, #2c2c70 100%);
+    border-radius: 1em;
+    padding: 1.2em 2em;
+    color: #fff;
+    font-size: 1rem;
+    text-align: left;
+    box-shadow: 0 2px 12px #ff008022;
+    border: 2px solid #ffde59;
+}
+
+.slot-rewards ul {
+    margin: 0.7em 0 0 1.4em;
+    padding: 0;
+}
+
+.slot-rewards li {
+    margin-bottom: 0.6em;
+    font-size: 1em;
+    text-shadow: 0 1px 4px #ff008055;
+}
+
+.spin-btn {
+    margin-top: 2em;
+    padding: 1em 3em;
+    font-size: 1.4em;
+    font-weight: bold;
+    color: #fff;
+    background: linear-gradient(90deg, #ff0080 0%, #ffde59 100%);
+    border: none;
+    border-radius: 1.5em;
+    box-shadow: 0 4px 16px #ff008055;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    animation: spinPulse 1.2s infinite alternate;
+    letter-spacing: 2px;
+}
+
+.spin-btn:hover, .spin-btn:focus {
+    transform: scale(1.12) rotate(-2deg);
+    box-shadow: 0 12px 48px #ff008055;
+    outline: none;
+}
+
+@keyframes spinPulse {
+    0% { transform: scale(1); box-shadow: 0 4px 16px #ff008022; }
+    100% { transform: scale(1.08); box-shadow: 0 16px 64px #ff008055; }
+}
+
+/* Optional: Add a subtle glow to the slot machine border */
+.slot-machine::after {
+    content: "";
+    position: absolute;
+    top: -8px; left: -8px; right: -8px; bottom: -8px;
+    border-radius: 2.2rem;
+    box-shadow: 0 0 32px 8px #ffde59cc;
+    pointer-events: none;
+    z-index: 0;
+}

@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+
+body {
+    margin: 0;
+    font-family: 'Orbitron', Arial, sans-serif;
+    background: linear-gradient(135deg, #1a1a40 0%, #ff0080 100%);
+    color: #fff;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.main-header {
+    background: rgba(20, 20, 60, 0.95);
+    padding: 1.5rem 0;
+    text-align: center;
+    box-shadow: 0 4px 20px #ff008055;
+    animation: headerFadeIn 1.2s ease;
+}
+
+@keyframes headerFadeIn {
+    from { opacity: 0; transform: translateY(-40px);}
+    to { opacity: 1; transform: translateY(0);}
+}
+
+.main-header h1 {
+    font-size: 2.8rem;
+    letter-spacing: 2px;
+    color: #ffde59;
+    text-shadow: 0 0 10px #ff0080, 0 0 20px #fff;
+    margin: 0 0 0.5rem 0;
+}
+
+.main-header nav a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 1.2rem;
+    font-size: 1.1rem;
+    transition: color 0.2s;
+    position: relative;
+}
+
+.main-header nav a::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #ff0080;
+    transition: width 0.3s;
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+}
+
+.main-header nav a:hover {
+    color: #ffde59;
+}
+
+.main-header nav a:hover::after {
+    width: 100%;
+}
+
+.feature-card h3 {
+    color: #ffde59;
+    margin-bottom: 0.5rem;
+    font-size: 1.3rem;
+}
+
+.feature-card p {
+    color: #fff;
+    font-size: 1rem;
+}
+
+footer {
+    text-align: center;
+    padding: 2rem 0 1rem 0;
+    color: #fff;
+    font-size: 1rem;
+    background: none;
+    margin-top: 2rem;
+    opacity: 0.8;
+}

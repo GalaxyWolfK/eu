@@ -1,0 +1,99 @@
+.roulette-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+}
+.roulette-board {
+    background: rgba(30, 30, 70, 0.97);
+    border-radius: 1.2rem;
+    box-shadow: 0 4px 20px #ff008055;
+    padding: 2.5rem 2rem 2rem 2rem;
+    min-width: 340px;
+    max-width: 400px;
+    text-align: center;
+    animation: fadeIn 0.7s;
+}
+.roulette-board h2 {
+    color: #ffde59;
+    margin-bottom: 1.2rem;
+    text-shadow: 0 0 8px #ff0080, 0 0 12px #fff;
+    font-size: 1.7rem;
+    letter-spacing: 1px;
+}
+.roulette-wheel {
+    position: relative;
+    margin: 0 auto 1.5rem auto;
+    width: 300px;
+    height: 300px;
+}
+.wheel-pointer {
+    position: absolute;
+    left: 50%;
+    top: -18px;
+    transform: translateX(-50%);
+    font-size: 2rem;
+    color: #ffde59;
+    z-index: 2;
+    text-shadow: 0 0 8px #ff0080;
+}
+#wheel-canvas {
+    border-radius: 50%;
+    background: #181830;
+    box-shadow: 0 0 24px #ff0080aa;
+}
+#roulette-form {
+    margin: 1.2rem 0 0.7rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+#roulette-form label {
+    color: #fff;
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+    text-align: left;
+}
+#roulette-form input[type="number"] {
+    width: 100%;
+    padding: 0.5rem 0.7rem;
+    border-radius: 8px;
+    border: none;
+    background: #22224a;
+    color: #fff;
+    font-size: 1rem;
+    outline: none;
+    box-shadow: 0 2px 8px #ff008022;
+    transition: background 0.2s;
+}
+#roulette-form input[type="number"]:focus {
+    background: #2d2d5a;
+}
+.play-btn {
+    margin-top: 0.7rem;
+    padding: 0.7rem 2rem;
+    background: linear-gradient(90deg, #ffde59 0%, #ff0080 100%);
+    color: #1a1a40;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 2rem;
+    cursor: pointer;
+    box-shadow: 0 4px 20px #ff008055;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.play-btn:hover {
+    background: linear-gradient(90deg, #ff0080 0%, #ffde59 100%);
+    color: #fff;
+    transform: scale(1.08);
+    box-shadow: 0 8px 40px #ffde59aa;
+}
+.roulette-result {
+    margin-top: 1.2rem;
+    font-size: 1.1rem;
+    min-height: 2.5em;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(30px);}
+    to { opacity: 1; transform: translateY(0);}
+}

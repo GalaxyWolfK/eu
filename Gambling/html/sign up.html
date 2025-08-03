@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LuckySpin Casino - Sign Up</title>
+    <link rel="stylesheet" type="text/css" href="../css/sing up.css">
+    <link rel="stylesheet" type="text/css" href="../css/page.css">
+    <link rel="icon" href="../photos/icon.jpg">
+</head>
+<body>
+    <header class="main-header">
+        <h1>🎰 LuckySpin Casino 🎲</h1>
+        <nav>
+            <a href="gambling.html">Home</a>
+            <a href="gambling-page.html">Games</a>
+            <a href="promotions.html">Promotions</a>
+            <a href="sign up.html">Sign Up</a>
+            <a href="login.html">Login</a>
+        </nav>
+    </header>
+    <main>
+        <section class="signup-section">
+            <form class="signup-form" autocomplete="off">
+                <div class="signup-avatar">
+                    <img src="../photos/icon.jpg" alt="Casino Avatar">
+                </div>
+                <h2>Create Your Account</h2>
+                <div class="input-group">
+                    <label for="signup-username">Username</label>
+                    <input type="text" id="signup-username" name="signup-username" required placeholder="Choose a username">
+                </div>
+                <div class="input-group">
+                    <label for="signup-email">Email</label>
+                    <input type="email" id="signup-email" name="signup-email" required placeholder="Enter your email">
+                </div>
+                <div class="input-group">
+                    <label for="signup-password">Password</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="signup-password" name="signup-password" required placeholder="Create a password">
+                        <button type="button" class="toggle-password" onclick="toggleSignupPassword()" aria-label="Show password">👁️</button>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="signup-confirm">Confirm Password</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="signup-confirm" name="signup-confirm" required placeholder="Confirm your password">
+                        <button type="button" class="toggle-password" onclick="toggleConfirmPassword()" aria-label="Show password">👁️</button>
+                    </div>
+                </div>
+                <button type="submit" class="signup-btn">Sign Up</button>
+                <p class="login-link">Already have an account? <a href="login.html">Login</a></p>
+            </form>
+        </section>
+        <script>
+            function toggleSignupPassword() {
+                const pwd = document.getElementById('signup-password');
+                pwd.type = pwd.type === 'password' ? 'text' : 'password';
+            }
+            function toggleConfirmPassword() {
+                const pwd = document.getElementById('signup-confirm');
+                pwd.type = pwd.type === 'password' ? 'text' : 'password';
+            }
+            // Animation for form entrance
+            document.addEventListener('DOMContentLoaded', () => {
+                document.querySelector('.signup-form').classList.add('show');
+            });
+        </script>
+    </main>
+    <footer>
+        <p>&copy; 2025 LuckySpin Casino. All rights reserved.</p>
+    </footer>
+</body>
+</html>
