@@ -3,25 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LuckySpin Casino - Game Selection</title>
-    <link rel="stylesheet" type="text/css" href="../css/gambling.css">
-    <link rel="stylesheet" type="text/css" href="../css/page.css">
-    <link rel="icon" href="../photos/icon.jpg">
+    <title>Blackjack - LuckySpin Casino</title>
+    <link rel="stylesheet" type="text/css" href="../../css/page.css">
+    <link rel="stylesheet" type="text/css" href="../../css/gambling.css">
+    <link rel="stylesheet" type="text/css" href="../Css/Blackjack.css">
+    <link rel="icon" href="../../photos/icon.jpg">
 </head>
 <body>
     <header class="main-header">
         <h1>🎰 LuckySpin Casino 🎲</h1>
         <nav>
-            <a href="gambling.html">Home</a>
-            <a href="gambling-page.html">Games</a>
-            <a href="promotions.html">Promotions</a>
-            <a href="sign up.html">Sign Up</a>
-            <a href="login.html">Login</a>
+            <a href="../../html/gambling.html">Home</a>
+            <a href="../../html/gambling-page.html">Games</a>
+            <a href="../../html/promotions.html">Promotions</a>
+            <a href="../../html/sign up.html">Sign Up</a>
+            <a href="../../html/login.html">Login</a>
         </nav>
     </header>
+    
+    <section class="hero">
+        <h2>🃏 Blackjack Game 🃏</h2>
+        <p>Beat the dealer and win big! Place your bet and let's play!</p>
+    </section>
+
+    <div class="main-layout">
+        <!-- Left Sidebar - Promotions -->
+        <aside class="left-sidebar">
+            <div class="promo-card">
+                <h3>🎁 Welcome Bonus</h3>
+                <div class="promo-content">
+                    <div class="bonus-amount">200%</div>
+                    <p>Up to $1000 bonus on your first deposit!</p>
+                    <button class="promo-btn">Claim Now</button>
+                </div>
+            </div>
+            
+            <div class="promo-card">
+                <h3>💰 Daily Cashback</h3>
+                <div class="promo-content">
+                    <div class="bonus-amount">10%</div>
+                    <p>Get 10% cashback on all your losses every day!</p>
+                    <button class="promo-btn">Learn More</button>
+                </div>
+            </div>
+            
+            <div class="promo-card">
+                <h3>🔥 Hot Streak</h3>
+                <div class="promo-content">
+                    <div class="bonus-amount">5X</div>
+                    <p>Win 5 hands in a row and get 5x multiplier!</p>
+                    <button class="promo-btn">Play Now</button>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Game Area -->
+        <div class="game-container">
+        <!-- Game Info Panel -->
+        <div class="game-info-panel">
+            <div class="player-info feature-card">
+                <h3>Player</h3>
+                <div class="score">Score: <span id="player-score">0</span></div>
+                <div class="chips">Chips: $<span id="player-chips">1000</span></div>
+            </div>
+            <div class="bet-info feature-card">
+                <h3>Current Bet</h3>
+                <div class="bet-amount">$<span id="current-bet">0</span></div>
+            </div>
+            <div class="dealer-info feature-card">
+                <h3>Dealer</h3>
+                <div class="score">Score: <span id="dealer-score">0</span></div>
+            </div>
+        </div>
+
+        <!-- Dealer's Hand -->
+        <section class="game-section dealer-section">
+            <h3>Dealer's Hand</h3>
+            <div id="dealer-cards" class="card-container"></div>
+        </section>
+
+        <!-- Player's Hand -->
+        <section class="game-section player-section">
+            <h3>Your Hand</h3>
+            <div id="player-cards" class="card-container"></div>
+        </section>
+
+        <!-- Game Controls -->
+        <section class="game-controls-section">
+            <!-- Betting Controls -->
+            <div class="betting-controls" id="betting-controls">
+                <h4>Place Your Bet</h4>
+                <div class="bet-buttons">
+                    <button class="bet-btn cta-btn" data-amount="10">$10</button>
+                    <button class="bet-btn cta-btn" data-amount="25">$25</button>
+                    <button class="bet-btn cta-btn" data-amount="50">$50</button>
+                    <button class="bet-btn cta-btn" data-amount="100">$100</button>
+                </div>
+                <div class="custom-bet">
+                    <input type="number" id="custom-bet-input" min="1" placeholder="Custom amount">
+                    <button id="custom-bet-btn" class="cta-btn">Bet</button>
+                </div>
+                <button id="deal-btn" class="cta-btn deal-button" disabled>Deal Cards</button>
+            </div>
+
+            <!-- Game Action Controls -->
+            <div class="game-controls" id="game-controls" style="display: none;">
+                <button id="hit-btn" class="cta-btn">Hit</button>
+                <button id="stand-btn" class="cta-btn">Stand</button>
+                <button id="double-btn" class="cta-btn">Double Down</button>
+            </div>
+
+            <!-- New Game Control -->
+            <div class="new-game-controls" id="new-game-controls" style="display: none;">
+                <button id="new-game-btn" class="cta-btn">New Game</button>
+            </div>
+        </section>
+
+        <!-- Game Messages -->
+        <section class="messages">
+            <div id="game-message" class="game-message">Place your bet to start playing!</div>
+        </section>
+        </div>
+
+        <!-- Right Sidebar - More Promotions -->
+        <aside class="right-sidebar">
+            <div class="promo-card">
+                <h3>🎆 VIP Program</h3>
+                <div class="promo-content">
+                    <div class="bonus-amount">GOLD</div>
+                    <p>Exclusive benefits and higher betting limits!</p>
+                    <button class="promo-btn">Join VIP</button>
+                </div>
+            </div>
+            
+            <div class="promo-card">
+                <h3>💵 Reload Bonus</h3>
+                <div class="promo-content">
+                    <div class="bonus-amount">50%</div>
+                    <p>Every weekend get 50% bonus on deposits!</p>
+                    <button class="promo-btn">Deposit</button>
+                </div>
+            </div>
+            
+            <div class="promo-card">
+                <h3>🏆 Tournament</h3>
+                <div class="promo-content">
+                    <div class="bonus-amount">$5K</div>
+                    <p>Weekly blackjack tournament with big prizes!</p>
+                    <button class="promo-btn">Enter</button>
+                </div>
+            </div>
+        </aside>
+    </div>
 
     <footer>
         <p>&copy; 2025 LuckySpin Casino. All rights reserved.</p>
     </footer>
+
+    <script src="../js/Blackjack.js"></script>
 </body>
 </html>
